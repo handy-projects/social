@@ -1,0 +1,32 @@
+{
+  "name": "social-admin-client",
+  "version": "0.0.1",
+  "homepage": "https://github.com/handy-projects/social",
+  "description": "social admin",
+  "main": "index.html",
+  "moduleType": [
+    "es6",
+    "globals"
+  ],
+  "keywords": [
+    "social",
+    "admin"
+  ],
+  "authors": [
+    "Sergey Kozachenko (Grievoushead)"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "angular-ui-router": "~0.2.15"
+  }
+}

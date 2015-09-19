@@ -1,0 +1,32 @@
+{
+  "name": "social-admin",
+  "version": "0.0.1",
+  "description": "Social Admin Panel",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:handy-projects/social.git"
+  },
+  "keywords": [
+    "social",
+    "node",
+    "admin"
+  ],
+  "author": "Sergey Kozachenko (Grievoushead)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/handy-projects/social/issues"
+  },
+  "homepage": "https://github.com/handy-projects/social",
+  "dependencies": {
+    "express": "^4.13.3",
+    "cluster": "^0.7.7",
+    "express-session": "^1.11.3",
+    "body-parser": "^1.14.0",
+    "passport": "^0.3.0",
+    "ejs": "^2.3.4"
+  }
+}
