@@ -25,7 +25,7 @@
                 <th>Register Date</th>
                 <th>Last Login Date</th>
               </tr>
-              <tr ng-repeat="bot in vm.bots">
+              <tr ng-repeat="bot in vm.bots" ng-click="vm.goToDetails(bot._id)">
                 <td>{{bot.acc_id}}</td>
                 <td>{{bot.name}}</td>
                 <td>{{bot.phone}}</td>
