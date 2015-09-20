@@ -40,8 +40,8 @@ if (cluster.isMaster){
 
 function _startWorker(){
   var app = express();
-  app.set('views', './views');
-  app.set('view engine', 'jade');
+  app.set('views', './public');
+  app.set('view engine', 'ejs');
   app.disable('x-powered-by');
   app.engine('html', require('ejs').renderFile);
 
@@ -56,6 +56,10 @@ function _startWorker(){
 
   // serve static files
   app.use(express.static('public'));
+
+  app.get("*", function(req, res) {
+    res.render("index.html");
+  });
 
   //app.use(morgan('combined',{ "stream": winstonStream}));
 
