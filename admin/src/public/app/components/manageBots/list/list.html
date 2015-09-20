@@ -1,5 +1,42 @@
 <div>
-  <h4>
-    Manage Bots List {{title}}
-  </h4>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <h3 class="box-title">Bots</h3>
+          <div class="box-tools">
+            <div class="input-group" style="width: 150px;">
+              <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+              <div class="input-group-btn">
+                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+              <tr>
+                <th>Account ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Register Date</th>
+                <th>Last Login Date</th>
+              </tr>
+              <tr ng-repeat="bot in vm.bots">
+                <td>{{bot.acc_id}}</td>
+                <td>{{bot.name}}</td>
+                <td>{{bot.phone}}</td>
+                <td>{{bot.email}}</td>
+                <td>{{bot.reg_dt}}</td>
+                <td>{{bot.last_login}}</td>
+              </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
