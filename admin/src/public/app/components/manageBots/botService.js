@@ -31,8 +31,18 @@ angular.module('sa.manageBots')
 
     this.like = function(botId, itemURL, itemType) {
       var deferred = $q.defer();
-
-      deferred.resolve();
+      var model = {
+        botId: botId,
+        itemURL: itemURL,
+        itemType: itemType
+      };
+      $http.put('/api/bots/like', model)
+        .then(function(res){
+          deferred.resolve(res.data);
+        })
+        .catch(function(err){
+          deferred.reject(err);
+        });
 
       return deferred.promise;
     };
@@ -40,8 +50,19 @@ angular.module('sa.manageBots')
     this.repost = function(botId, itemURL, itemType) {
       var deferred = $q.defer();
 
-      deferred.resolve();
-      
+      var model = {
+        botId: botId,
+        itemURL: itemURL,
+        itemType: itemType
+      };
+      $http.put('/api/bots/repost', model)
+        .then(function(res){
+          deferred.resolve(res.data);
+        })
+        .catch(function(err){
+          deferred.reject(err);
+        });
+
       return deferred.promise;
     };
   }]);

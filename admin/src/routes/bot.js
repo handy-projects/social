@@ -2,6 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Bot = require('../models/bot');
 var winston = require('winston');
+var vkApi = require('vk-api-node-wrapper');
 
 router.get('/getList', function(req, res, next){
   Bot.find().lean().exec(function(err, data){
@@ -22,6 +23,74 @@ router.get('/getInfo', function(req, res, next){
     	res.json(data);
   	}
   });
+});
+
+router.put('/like', function(req, res, next){
+  var model = req.body;
+
+  Bot.findById(model.botId).exec(function(err, data){
+    if (err) {
+      next(err);
+    } else {
+      var bot = data;
+
+      if (!bot.access_token) {
+        //next(new Error("Bot #"+bot._id+" has no access token"));
+        var vk = new vkApi(
+          {
+              client_id: 0,
+              login: bot.login,
+              pass: bot.password
+          },
+            function (err, access_token) {
+                if(err)
+                    return console.error('Unable to authenticate', err);
+                console.log('Successfully authenticated / access_token:', access_token);
+                bot.access_token = access_token;
+                bot.save();
+                res.end();
+            });
+      } else {
+        var vk = new vkApi(
+          {
+              client_id: 0,
+              login: bot.login,
+              pass: bot.password
+          },
+            function (err, access_token) {
+                if(err)
+                    return console.error('Unable to authenticate', err);
+                console.log('Successfully authenticated / access_token:', access_token);
+                // like photo get owner and photo id from url
+                // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
+                // owner_id = 6623021
+                // photo_id = 380222338
+                vk.api('likes.add', {type: 'photo', owner_id: 6623021, item_id: 380222338}, function(err, res) {
+                  if (err) {
+                    console.dir(err);
+                  }
+
+                  console.dir(res);
+
+                });
+
+                res.end();
+            });
+          //vk.access_token = bot.access_token;
+
+      }
+    }
+  });
+
+
+
+  res.json({});
+});
+
+router.put('/repost', function(req, res, next){
+  var model = req.body;
+  console.dir(model);
+  res.json({});
 });
 
 module.exports = router;
