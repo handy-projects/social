@@ -17,11 +17,11 @@ angular.module('sa.manageBots', [
       .state('manageBotsDetails.info', {
         url: "",
         templateUrl: "app/components/manageBots/details/info/info.html",
-        //controller: 'ManageBotsDetailsCtrl'
+        controller: 'ManageBotsDetailsInfoCtrl'
       })
       .state('manageBotsDetails.actions', {
         url: "/actions",
         templateUrl: "app/components/manageBots/details/actions/actions.html",
-        //controller: 'ManageBotsDetailsCtrl'
+        controller: 'ManageBotsDetailsActionsCtrl'
       });
 }]);

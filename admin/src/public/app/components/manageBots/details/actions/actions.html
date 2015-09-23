@@ -1,12 +1,57 @@
 <div class="tab-pane active" id="tab_1-1">
   <b>Actions:</b>
-  <p>Exactly like the original bootstrap tabs except you should use
-    the custom wrapper <code>.nav-tabs-custom</code> to achieve this style.</p>
-  A wonderful serenity has taken possession of my entire soul,
-  like these sweet mornings of spring which I enjoy with my whole heart.
-  I am alone, and feel the charm of existence in this spot,
-  which was created for the bliss of souls like mine. I am so happy,
-  my dear friend, so absorbed in the exquisite sense of mere tranquil existence,
-  that I neglect my talents. I should be incapable of drawing a single stroke
-  at the present moment; and yet I feel that I never was a greater artist than now.
+  <br/>
+  <br/>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label>Item Type:</label>
+        <div class="radio">
+          <label>
+            <input type="radio" name="itemType" value="wallpost" ng-model="vm.item.type">
+            Wall Post
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="itemType" value="photo" ng-model="vm.item.type">
+            Photo
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="itemType" value="comment" ng-model="vm.item.type">
+            Comment
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Item URL:</label>
+        <div class="input-group input-group-sm">
+          <input type="text" class="form-control" ng-model="vm.item.url">
+          <div class="input-group-btn">
+            <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown">Action <span class="fa fa-caret-down"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#" ng-click="vm.like()">Like</a></li>
+              <li><a href="#" ng-click="vm.repost()">Repost</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-success alert-dismissible" ng-show="vm.success">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4>	<i class="icon fa fa-check"></i> Done!</h4>
+        Successfuly executed!
+      </div>
+
+      <div class="alert alert-danger alert-dismissible" ng-show="vm.error">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4>	<i class="icon fa fa-check"></i> Error!</h4>
+        Something went wrong:(
+      </div>
+    </div>
+  </div>
+
 </div>

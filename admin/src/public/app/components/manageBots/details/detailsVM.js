@@ -1,6 +1,6 @@
 angular.module('sa.manageBots')
   .factory('ManageBotsDetailsVM', ['botService', function(botService){
-    var ViewModel = function(id){
+    var ViewModel = function(){
       var self = this;
 
       _init();

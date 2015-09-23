@@ -1,5 +1,5 @@
 angular.module('sa.manageBots')
-  .controller('ManageBotsDetailsCtrl', ['$scope', '$stateParams', 'ManageBotsDetailsVM',
-   function($scope, $stateParams, VM){
-    $scope.vm = new VM($stateParams.id);
+  .controller('ManageBotsDetailsCtrl', ['$scope', 'ManageBotsDetailsVM',
+   function($scope, VM){
+    $scope.vm = new VM();
   }]);

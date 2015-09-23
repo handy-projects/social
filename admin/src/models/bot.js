@@ -6,12 +6,13 @@ var botSchema = new Schema({
   email: String,
   name:  String,
   acct_id: String,
+  ava_url: String,
   login: String,
   password: String,
   access_token: String,
   expires_in: Number,
   reg_dt: Date,
-  last_login: Date
+  last_act_dt: Date
 });
 
 module.exports = mongoose.model('Bot', botSchema);
