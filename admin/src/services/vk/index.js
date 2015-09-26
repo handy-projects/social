@@ -79,6 +79,78 @@ var service = new function() {
 
     return deferred.promise;
   };
+
+  this.repost = function(args) {
+
+    ///
+    /// Steps:
+    /// 1. Find bot by id
+    /// 2. Check state
+    /// 3. Repost item
+    /// 4. Resolve
+
+    var botId, itemType, itemURL;
+
+    botId = args.botId;
+    itemType = args.itemType;
+    itemURL = args.itemURL;
+
+    var deferred = $q.defer();
+
+    function _error(err) {
+      winston.debug('Error in vk service: repost() - ' + err);
+      deferred.reject(err);
+    };
+
+    function _success(res) {
+      winston.debug('Success: repost()');
+      deferred.resolve(res);
+    };
+
+    Bot.findById(botId)
+      .exec(function(err, data){
+        if (err) {
+          _error(err);
+          return;
+        }
+
+        var bot = data;
+
+        if (!bot.access_token || !bot.access_token.length) {
+          _error(new Error('Bot #'+bot.id+' has no access_token'));
+          return;
+        }
+
+        var vkClient = new vkApi({
+          client_id: keys.vk_app_id,
+          ua: keys.ua,
+          access_token: bot.access_token
+        });
+
+        var parsedUrl = vkUrlParser.parse(itemType, itemURL);
+        if (parsedUrl.err) {
+          _error(parsedUrl.err);
+          return;
+        }
+
+        //console.dir(parsedUrl);
+
+        // https://vk.com/nsc?w=wall-25530938_19228
+        vkClient.api('wall.repost', {
+           object: parsedUrl.data.object,
+           message: ''
+         }, function(err, res) {
+           if (err) {
+             _error(err);
+             return;
+           }
+
+          _success();
+         });
+      });
+
+    return deferred.promise;
+  };
 };
 
 module.exports = service;

@@ -45,8 +45,20 @@ router.put('/like', function(req, res, next){
 
 router.put('/repost', function(req, res, next){
   var model = req.body;
-  console.dir(model);
-  res.json({});
+
+  // validate
+  if (!model.botId || !model.itemType || !model.itemURL) {
+    res.status(400).end();
+    return;
+  }
+
+  vk.repost(model)
+    .then(function(){
+      res.end();
+    })
+    .catch(function(err){
+      res.status(500).end();
+    });
 });
 
 module.exports = router;

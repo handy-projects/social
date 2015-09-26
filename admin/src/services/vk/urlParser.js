@@ -28,6 +28,15 @@ var parser = new function() {
           itemId: parseInt(itemId)
         };
         break;
+
+      case 'wallpost':
+        // https://vk.com/nsc?w=wall-25530938_19228
+        // wall-25530938_19228 - object
+        var _u = url.parse(itemURL, true);
+        res.data = {
+          object: _u.query.w
+        };
+        break;
       default:
         res.err = new Error('URL type: ' + itemType + ' can\'t be parsed');
     }
