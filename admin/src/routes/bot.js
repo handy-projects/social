@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var Bot = require('../models/bot');
 var winston = require('winston');
 var vkApi = require('vk-api-node-wrapper');
+var keys = require('../keys');
 
 router.get('/getList', function(req, res, next){
   Bot.find().lean().exec(function(err, data){
@@ -35,48 +36,40 @@ router.put('/like', function(req, res, next){
       var bot = data;
 
       if (!bot.access_token) {
-        //next(new Error("Bot #"+bot._id+" has no access token"));
-        var vk = new vkApi(
-          {
-              client_id: 0,
-              login: bot.login,
-              pass: bot.password
-          },
-            function (err, access_token) {
-                if(err)
-                    return console.error('Unable to authenticate', err);
-                console.log('Successfully authenticated / access_token:', access_token);
-                bot.access_token = access_token;
-                bot.save();
-                res.end();
-            });
+        next(new Error("Bot #"+bot._id+" has no access token"));
       } else {
-        var vk = new vkApi(
+        var vk = new vkApi({
+          client_id: keys.vk_app_id,
+          ua: keys.ua,
+          access_token: bot.access_token
+        });
+
+        // like photo get owner and photo id from url
+        // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
+        // owner_id = 6623021
+        // photo_id = 380222338
+        vk.api('likes.add', {type: 'photo', owner_id: 6623021, item_id: 380222338}, function(err, re) {
+          if (err) {
+            console.dir(err);
+          }
+
+          console.dir(re);
+          res.end();
+        });
+        /*vk = new vkApi(
           {
-              client_id: 0,
+              client_id: keys.vk_app_id,
               login: bot.login,
               pass: bot.password
-          },
-            function (err, access_token) {
-                if(err)
-                    return console.error('Unable to authenticate', err);
-                console.log('Successfully authenticated / access_token:', access_token);
-                // like photo get owner and photo id from url
-                // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
-                // owner_id = 6623021
-                // photo_id = 380222338
-                vk.api('likes.add', {type: 'photo', owner_id: 6623021, item_id: 380222338}, function(err, res) {
-                  if (err) {
-                    console.dir(err);
-                  }
+          });
 
-                  console.dir(res);
+        vk.auth(function (err, access_token) {
+            if(err)
+                return console.error('Unable to authenticate', err);
+            console.log('Successfully authenticated / access_token:', access_token);
 
-                });
-
-                res.end();
-            });
-          //vk.access_token = bot.access_token;
+            res.end();
+        });*/
 
       }
     }
