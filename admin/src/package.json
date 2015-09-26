@@ -36,6 +36,7 @@
     "mongoose": "^4.1.7",
     "passport-local": "^1.0.0",
     "bcrypt": "^0.8.5",
-    "vk-api-node-wrapper": "^1.0.1"
+    "vk-api-node-wrapper": "^1.0.1",
+    "q": "^1.4.1"
   }
 }

@@ -1,9 +1,8 @@
 var router = require('express').Router();
-var mongoose = require('mongoose');
 var Bot = require('../models/bot');
 var winston = require('winston');
-var vkApi = require('vk-api-node-wrapper');
-var keys = require('../keys');
+
+var vk = require('../services/vk');
 
 router.get('/getList', function(req, res, next){
   Bot.find().lean().exec(function(err, data){
@@ -29,56 +28,19 @@ router.get('/getInfo', function(req, res, next){
 router.put('/like', function(req, res, next){
   var model = req.body;
 
-  Bot.findById(model.botId).exec(function(err, data){
-    if (err) {
-      next(err);
-    } else {
-      var bot = data;
+  // validate
+  if (!model.botId || !model.itemType || !model.itemURL) {
+    res.status(400).end();
+    return;
+  }
 
-      if (!bot.access_token) {
-        next(new Error("Bot #"+bot._id+" has no access token"));
-      } else {
-        var vk = new vkApi({
-          client_id: keys.vk_app_id,
-          ua: keys.ua,
-          access_token: bot.access_token
-        });
-
-        // todo: parse needed params from url
-        var type = model.itemType;
-        var url = model.itemURL;
-
-        // like photo get owner and photo id from url
-        // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
-        // owner_id = 6623021
-        // photo_id = 380222338
-        vk.api('likes.add', {type: 'photo', owner_id: 6623021, item_id: 380222338}, function(err, re) {
-          if (err) {
-            console.dir(err);
-            next(err);
-          }
-
-          console.dir(re);
-          res.end();
-        });
-        /*vk = new vkApi(
-          {
-              client_id: keys.vk_app_id,
-              login: bot.login,
-              pass: bot.password
-          });
-
-        vk.auth(function (err, access_token) {
-            if(err)
-                return console.error('Unable to authenticate', err);
-            console.log('Successfully authenticated / access_token:', access_token);
-
-            res.end();
-        });*/
-
-      }
-    }
-  });
+  vk.like(model)
+    .then(function(){
+      res.end();
+    })
+    .catch(function(err){
+      res.status(500).end();
+    });
 });
 
 router.put('/repost', function(req, res, next){
