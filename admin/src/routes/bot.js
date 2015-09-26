@@ -47,7 +47,7 @@ router.put('/like', function(req, res, next){
         // todo: parse needed params from url
         var type = model.itemType;
         var url = model.itemURL;
-        
+
         // like photo get owner and photo id from url
         // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
         // owner_id = 6623021
@@ -79,10 +79,6 @@ router.put('/like', function(req, res, next){
       }
     }
   });
-
-
-
-  res.json({});
 });
 
 router.put('/repost', function(req, res, next){

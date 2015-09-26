@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="theme/css/AdminLTE.min.css">
     <link rel="stylesheet" href="theme/css/skins/skin-blue.min.css">
+    <link rel="stylesheet" href="bower_components/ngtoast/dist/ngToast.min.css">
     <!--[if lt IE 9]>
         <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -18,6 +19,8 @@
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper" ng-app="sa">
+
+      <toast></toast>
 
       <!-- Main Header -->
       <header class="main-header">
@@ -324,6 +327,9 @@
     <script src="theme/js/app.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="bower_components/ngtoast/dist/ngToast.min.js"></script>
     <script src="app/components/manageBots/manageBots.js"></script>
     <script src="app/components/manageBots/list/listCtrl.js"></script>
     <script src="app/components/manageBots/list/listVM.js"></script>
