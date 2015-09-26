@@ -44,6 +44,10 @@ router.put('/like', function(req, res, next){
           access_token: bot.access_token
         });
 
+        // todo: parse needed params from url
+        var type = model.itemType;
+        var url = model.itemURL;
+        
         // like photo get owner and photo id from url
         // https://vk.com/lionheartinside?z=photo6623021_380222338%2Falbum6623021_161589565%2Frev
         // owner_id = 6623021
@@ -51,6 +55,7 @@ router.put('/like', function(req, res, next){
         vk.api('likes.add', {type: 'photo', owner_id: 6623021, item_id: 380222338}, function(err, re) {
           if (err) {
             console.dir(err);
+            next(err);
           }
 
           console.dir(re);
